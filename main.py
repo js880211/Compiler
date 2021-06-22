@@ -1,62 +1,54 @@
-json=' { "String" : "1" ,"number":2,"true":true,"false":false,"arraywithnumber":[1,2,3],"arraywithstring":["a","b"],"arraywithboolean":[true,false],"obj":{"1":"2"}}'
-class flags:
-  #將旗標集中
-  def __init__(self):
-    self.position=0
-    self.objectnum=0
-    self.currrentobjectnum=0
-    self.left=[]
+import jsonparse
+import re
 
-Done=0
-strs=[]
-def peeknextchar(json,flags):
-  return(json[flags.position+1])
-  
-def tonextchar(flags):
-  flags.position+=1
+strs=jsonparse.strs
+str=strs[3]
+strset=[]
+value=[]
+str=str.replace(" ","")
+print(str)
 
-def EndOfObject(json,flags):
-  flags.currrentobjectnum+=1
-  if(flags.currrentobjectnum==flags.objectnum):
-    global Done
-    Done=1
+def lookstr(str):
+  m=re.search("\"[0-9A-Za-z]*\"",str)
+  #print(m.group())
+  return m.group()
 
-def object(json,flags):
-  while(1):
-    if(json[flags.position]=='{'):
-      flags.left.append(flags.position)
-      #print(json[flags.position],end="")
-      tonextchar(flags)
-    if(peeknextchar(json,flags)!='}'):
-      #print(json[flags.position],end="")
-      tonextchar(flags)
-    else:
-      #print(json[flags.position],end="")
-      tonextchar(flags)
-      EndOfObject(json,flags)
-      strs.append(json[flags.left.pop():flags.position+1])
-    if(Done):
-      #print(json[flags.position],end="")
-      break
+def lookvalue_str(str):
+  m=re.search("\:\"*[0-9A-Za-z]*\"*",str)
+  #print(m.group())
+  return m.group()
 
-def value():
-  pass
+def lookvalue_empty(str):
+  m=re.search("\:\{\}",str)
+  #print(m.group())
+  return m.group()
 
-def String(json,flags):
-  pass
-
-flags=flags()
-
-if(json.count('{')==json.count('}')):
-  flags.objectnum=json.count('{')
-  while(1):
-    if(Done):
-      break
-    if(json[flags.position]=='{'):
-      object(json,flags)
-    else:
-      tonextchar(flags)
-    
+def lookvalue(str):
+  if(str[str.find(":")+1]=='{'):
+    if(str[str.find(":")+2]=='}'):
+      return lookvalue_empty(str)
+  elif (str[str.find(":")+1]=='"'):
+    return lookvalue_str(str)
+  else:
+    lookstr(str)
+    lookvalue(str)
+#str2=str2.replace(lookstr(str2),"")
 
 
-print(strs)
+for i in range(str.count(',')+1):
+  strset.append(lookstr(str))
+  str=str.replace(lookstr(str),"")
+  #looksemicolon(str)
+  value.append(lookvalue(str))
+  str=str.replace(lookvalue(str),"")
+
+  print(strset)
+
+  print(value)
+
+  print(str)
+
+  str=str.replace(',',"",1)
+
+
+
