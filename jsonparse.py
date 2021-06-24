@@ -1,4 +1,3 @@
-
 #Put the json you want to parse
 json=' {"OBJ":{},"String" : "1" ,"number":2,"true":true,"false":false,"arraywithnumber":[1,2,3],"arraywithstring":["a","b"],"arraywithboolean":[true,false],"obj":{"1":"2"},"obj2":{}}'
 

@@ -46,7 +46,6 @@ def lookvalue(str):
     else:
       m=re.search("\:\{[\"0-9A-Za-z,:]*\}",str)
       return m.group()
-    
 
   elif (str[str.find(":")+1]=='"'):
     return lookvalue_str(str)
@@ -62,10 +61,6 @@ def lookvalue(str):
 
   elif("true" in str[str.find(":")+1:str.find(":")+6] or "false" in str[str.find(":")+1:str.find(":")+6]):
     return lookvalue_boolean(str)
-
-  
-
-
 
 for i in range(str.count(',')+1):
   try:
@@ -86,6 +81,9 @@ for i in range(str.count(',')+1):
   '''
   str=str.replace(',',"",1)
 
-print("String Tag in JSON:"+strset)
-print("Values in JSON"+value)
+print("String Tag in JSON:")
+print(strset)
+print()
+print("Values in JSON:")
+print(value)
 
