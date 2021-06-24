@@ -1,3 +1,7 @@
+'''
+************
+Deprecated last edited at 2021/6/24
+************
 Switcher=0
 StringFlag=0
 ValueFlag=0
@@ -63,3 +67,4 @@ for i in range(0,len(json)):
       StringFlag = 0
 
 print(DataList)
+'''
